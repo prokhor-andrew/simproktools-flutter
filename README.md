@@ -8,7 +8,60 @@ Add the line into pubspec.yaml:
 
 ```
 dependencies:
-    simproktools: ^1.1.1
+    simproktools: ^1.1.2
+```
+
+## BasicMachine
+
+In your Dart code use:
+
+```Dart
+import 'package:simproktools/basic.dart';
+```
+
+A machine with an injectable processing behavior.
+
+```Dart
+final Machine<Input, Output> machine = BasicMachine(
+    processor: (Input input, Handler<Output> callback) {
+        // processing goes here
+    }
+);
+```
+
+## BasicWidgetMachine
+
+In your Dart code use:
+
+```Dart
+import 'package:simproktools/basic.dart';
+```
+
+A class that describes a widget machine with an injectable child widget.
+
+```Dart
+final WidgetMachine<Input, Output> machine = BasicWidgetMachine(child: MyWidget());
+```
+
+## ProcessMachine
+
+In your Dart code use:
+
+```Dart
+import 'package:simproktools/process.dart';
+```
+
+A machine with an injectable processing behavior over the injected object.
+
+```Dart
+final Object object = ...;
+
+final Machine<Input, Output> machine = ProcessMachine.create(
+    object: object,
+    processor: (Object object, Input, input, Handler<Output> callback) {
+        // processing goes here
+    }
+);
 ```
 
 ## JustMachine
@@ -137,4 +190,24 @@ final Machine<String, double> result = machine.scan(initial: true, reducer: (boo
     // ScanOutput<double, bool>.event(11.11); // when output has to be sent to the parent machine. 
     ...
 });
+```
+
+## ConnectableMachine
+
+In your Dart code use:
+
+```Dart
+import 'package:simproktools/connectable.dart';
+```
+
+A machine for dynamic creation and connection of other machines.
+
+```Dart
+final Machine<Input, Output> = ConnectableMachine<Input, Output, BasicConnection<Input, Output>>(
+    initial: BasicConnection<Input, Output>({ /* machines go here */ }),
+    reducer: (BasicConnection<Input, Output> connection, Input input) {
+        // ConnectionType.reduce() // to connect new machines
+        // ConnectionType.inward() // to send input to the connected machines
+    }
+);
 ```

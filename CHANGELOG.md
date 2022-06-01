@@ -1,3 +1,3 @@
-## 1.1.1
+## 1.1.2
 
-Initial publication. No changes so far.
+Added BasicMachine, BasicWidgetMachine, ProcessMachine, ConnectableMachine.
